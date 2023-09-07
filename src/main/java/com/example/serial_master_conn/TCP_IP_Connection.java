@@ -6,26 +6,30 @@ import java.util.HashSet;
 
 public class TCP_IP_Connection {
 
+    protected Serial_Conn conn;
+    protected Register[] registers;
+    protected bitreader br;
+    protected HashSet<Dato> datoHashSet;
 
     protected TCP_IP_Connection(){
-    Serial_Conn conn = new Serial_Conn("192.168.0.236",502);
-    conn.connect();
-    conn.reading_registers();
+        conn = new Serial_Conn("192.168.0.236",502);
+        conn.connect();
+        conn.reading_registers();
 
-    Register[] registers = conn.getRegisters();
-    bitreader br = new bitreader(registers);
+        registers = conn.getRegisters();
+        br = new bitreader(registers);
 
-    System.out.println(br.toString(4));
+        System.out.println(br.toString(4));
 
-    System.out.println(conn.toString());
+        System.out.println(conn.toString());
 
-    try {
-        conn.refresh();
-    } catch (Serial_Conn.InvalidReconnectionsExpection e) {
-        throw new RuntimeException(e);
+
+
+        datoHashSet = new HashSet<>();
+        addsAttributes();
+
     }
-
-        HashSet<Dato> datoHashSet = new HashSet<>();
+    private void  addsAttributes(){
         // aggiungiamo gli attributi
         Anomalia a_Impianto_In_Cor = new Anomalia("anomalia impianto in corso",4,6);
         Pompa pomp1 = new Pompa("Pompa 1",4,13,8);
@@ -66,13 +70,26 @@ public class TCP_IP_Connection {
         br.isValueOf(emergenza_rip.getRegistro(), emergenza_rip.getOffset(), Type.BIT);
         emergenza_rip.setStato(br.getBit_value());
         datoHashSet.add(emergenza_rip);
+    }
+    protected void refresh(){
+        try {
+            conn.refresh();
+        } catch (Serial_Conn.InvalidReconnectionsExpection e) {
+            throw new RuntimeException(e);
+        }
+        // free the memory
+        datoHashSet.clear();
 
-        Dato ris = findDato("Emergenza non ripristinata",datoHashSet);
+        registers = conn.getRegisters();
+        br.registers = registers;
 
-        conn.disconnect();
+        addsAttributes();
 
     }
-    private static Dato findDato(String nome, HashSet<Dato> datoHashSet) {
+    protected void disconnect(){
+        conn.disconnect();
+    }
+    protected  Dato findDato(String nome, HashSet<Dato> datoHashSet) {
         for (Dato dato : datoHashSet) {
             if (dato.getNome().equals(nome)) {
                 return dato;

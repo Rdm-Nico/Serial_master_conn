@@ -1,5 +1,7 @@
 package com.example.serial_master_conn;
 
+import java.util.HashSet;
+
 public abstract class Dato implements Abstract_Dato {
 
     private String nome;
@@ -18,6 +20,8 @@ public abstract class Dato implements Abstract_Dato {
     }
     public Dato(String nome, int registro, int poss) {
         this.nome = nome;
+        this.registro = registro;
+        this.poss = poss;
     }
 
     public Dato(String nome, boolean stato, int registro, int poss) {
@@ -70,7 +74,6 @@ public abstract class Dato implements Abstract_Dato {
     public int getOffset() {
         return poss;
     }
-
 
 
 
