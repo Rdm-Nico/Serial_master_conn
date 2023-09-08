@@ -1,0 +1,67 @@
+.root{
+    -fx-background-color: trasparent;
+    -fx-background-image: url("Logo_Gray2.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 845 682;
+    -fx-background-position: center center;
+}
+
+.label{
+    -fx-text-fill: #00963F;
+    -fx-font-size: 15;
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+}
+
+
+.button {
+    -fx-text-fill: #111;
+    -fx-font-weight: bold;
+    -fx-align-items: center;
+    -fx-background-color: #00963F;
+    -fx-border-radius: 8px;
+    -fx-box-sizing: border-box;
+    -fx-color: #111;
+    -fx-cursor: pointer;
+    -fx-display: flex;
+    -fx-font-family: Inter,sans-serif;
+    -fx-font-size: 16px;
+    -fx-height: 48px;
+    -fx-justify-content: center;
+    -fx-line-height: 24px;
+    fx-touch-action: manipulation;
+}
+
+.button:pressed{
+    -fx-background-color: #111;
+    -fx-text-fill: #00963F;
+}
+.button:hover{
+    -fx-background-color: #111;
+    -fx-text-fill: #00963F;
+}
+
+#label_Imp:pressed{
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-padding: 5px;
+}
+
+.init_label{
+    -fx-border-style: solid;
+    -fx-background-color: #111;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-padding: 5px;
+    -fx-max-width: 55;
+    -fx-alignment: center;
+}
+
+.red_label{
+    -fx-background-color: #f10505;
+}
+
+
+
+

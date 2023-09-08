@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.InputMethodEvent;
 import javafx.util.Duration;
 
 import java.util.Timer;
@@ -69,6 +70,9 @@ public class Controller_MainFrame{
             // start connection
              conn = new TCP_IP_Connection();
              System.out.println("Set connection!!!");
+
+            label_Imp.setStyle("-fx-border-color: black");
+            label_ciclo.setStyle("-fx-border-color: black");
 
              // change the text of the labels
             visualize();
@@ -149,6 +153,7 @@ public class Controller_MainFrame{
             conn.disconnect();
 
             // clear the text of the labels
+            label_Imp.getStyleClass().add("label");
             label_ciclo.setText("");
             label_emergenza.setText("");
             label_max.setText("");
