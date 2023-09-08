@@ -1,6 +1,6 @@
 .root{
     -fx-background-color: trasparent;
-    -fx-background-image: url("Logo_Gray2.png");
+    -fx-background-image: url("Logo-Gray2.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 845 682;
     -fx-background-position: center center;
@@ -8,7 +8,15 @@
 
 .label{
     -fx-text-fill: #00963F;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+    -fx-font-family: Inter,sans-serif;
+    -fx-font-weight: bold;
+
+}
+
+.init_label_left{
+    -fx-text-fill: #d0caca;
+    -fx-font-size: 18px;
     -fx-font-family: Inter,sans-serif;
     -fx-font-weight: bold;
 }
@@ -25,7 +33,7 @@
     -fx-cursor: pointer;
     -fx-display: flex;
     -fx-font-family: Inter,sans-serif;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-height: 48px;
     -fx-justify-content: center;
     -fx-line-height: 24px;
@@ -62,6 +70,12 @@
     -fx-text-fill: #111;
     -fx-background-color: #f10505;
     -fx-border-color: #f10505;
+}
+
+.yellow_label{
+    -fx-text-fill: #111;
+    -fx-background-color: #faeb19;
+    -fx-border-color: #faeb19;
 }
 
 

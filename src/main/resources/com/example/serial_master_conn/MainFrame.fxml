@@ -21,11 +21,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="button_Connect" mnemonicParsing="false" onAction="#Events_Buttons" prefHeight="26.0" prefWidth="114.0" text="Connect" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="button_Connect" mnemonicParsing="false" onAction="#Events_Buttons" prefHeight="26.0" prefWidth="114.0" text="Connetti" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="35.0" />
                </GridPane.margin></Button>
-            <Button fx:id="button_disconnect" mnemonicParsing="false" onAction="#Events_Buttons" prefHeight="26.0" prefWidth="114.0" text="Disconnect" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="button_disconnect" mnemonicParsing="false" onAction="#Events_Buttons" prefHeight="40.0" prefWidth="126.0" text="Disconetti" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></Button>
@@ -50,13 +50,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Anomalia Impianto In Corso" GridPane.halignment="CENTER" />
+            <Label styleClass="init_label_left" text="Anomalia Impianto In Corso" GridPane.halignment="CENTER" />
             <Label fx:id="label_Imp" alignment="CENTER" prefHeight="34.0" prefWidth="55.0" styleClass="init_label" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets left="70.0" />
                </GridPane.margin>
             </Label>
-            <Label layoutX="24.0" layoutY="39.0" text="Ciclo automatico in Corso" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label layoutX="24.0" layoutY="39.0" styleClass="init_label_left" text="Ciclo automatico in Corso" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="label_ciclo" styleClass="init_label" stylesheets="@MainFrameStyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="70.0" />
@@ -73,13 +73,13 @@
                <GridPane.margin>
                   <Insets left="70.0" />
                </GridPane.margin></Label>
-            <Label text="Anomalia Livello massimo filtrato" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="Anomalia livello minimo filtrato" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label text="Pompa 1 esclusa" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label text="Pompa 2 esclusa" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label text="Frequenza elettropompa 1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label text="Frequenza elettropompa 2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <Label text="Anomalia emergenza non ripristinata" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Label styleClass="init_label_left" text="Anomalia Livello massimo filtrato" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label styleClass="init_label_left" text="Anomalia livello minimo filtrato" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Label styleClass="init_label_left" text="Esclusione pompa 1 " GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label styleClass="init_label_left" text="Esclusione pompa 2 " GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label styleClass="init_label_left" text="Frequenza elettropompa 1[Hz]" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label styleClass="init_label_left" text="Frequenza elettropompa 2[Hz]" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Label styleClass="init_label_left" text="Anomalia emergenza non ripristinata" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label fx:id="label_action_pomp2" styleClass="init_label" stylesheets="@MainFrameStyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="70.0" />

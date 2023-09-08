@@ -29,6 +29,10 @@ public class Controller_MainFrame{
     private RefreshScreenService refreshService;
     private ScheduledService scheduledService;
 
+
+    // for the labels
+    private final List<Pair<String,Label>> labelList = new ArrayList<Pair<String,Label>>();
+
     @FXML
     private Button button_Connect;
 
@@ -63,7 +67,7 @@ public class Controller_MainFrame{
     private Label label_min;
 
 
-    private ArrayList<Label> labelList = new ArrayList<>();
+
 
     @FXML
     void Events_Buttons(ActionEvent event) {
@@ -99,11 +103,11 @@ public class Controller_MainFrame{
             conn.disconnect();
 
             // clear the text of the labels
-            for(Label l:labelList){
-                l.getStyleClass().clear();
-                l.getStyleClass().add("init_label");
-                l.getStyleClass().add("label");
-                l.setText("");
+            for(Pair<String,Label> p:labelList){
+                p.getR().getStyleClass().clear();
+                p.getR().getStyleClass().add("init_label");
+                p.getR().getStyleClass().add("label");
+                p.getR().setText("");
             }
 
             labelList.clear();
@@ -112,25 +116,40 @@ public class Controller_MainFrame{
     }
 
     private void changeEvents() {
-        for (Label l: labelList){
+        for (Pair<String,Label> p: labelList){
 
-            if(isNumeric(l.getText())){
+            if(isNumeric(p.getR().getText())){
                 // then is a freq:
-                int val = Integer.parseInt(l.getText());
+                int val = Integer.parseInt(p.getR().getText());
                 if( val < 0 || val > 250){
-                    l.getStyleClass().add("red_label");
+                    p.getR().getStyleClass().add("red_label");
+                }
+                else if(val == 0){
+                     p.getR().getStyleClass().add("yellow_label");
                 }
             }
             else {
-                switch (l.getText()) {
-                    case "true": {
+                switch (p.getR().getText()) {
+                    case "On" -> {
+                        if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia Livello massimo filtrato" || p.getL() == "Anomalia Livello minimo filtrato" ||
+                                p.getL() == "Esclusione pompa 1" || p.getL() == "Esclusione pompa 2" || p.getL() == "Anomalia emergenza non ripristinata") {
+                            // we've to change the class style
+                            p.getR().getStyleClass().add("red_label");
+                            break;
+                        }
+                        else
+                            break;
+                    }
+                    case "Off" -> {
+                        if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia livello massimo filtrato" || p.getL() == "Anomalia livello minimo filtrato" ||
+                                p.getL() == "Esclusione pompa 1" || p.getL() == "Esclusione pompa 2" || p.getL() == "Anomalia emergenza non ripristinata") {
+                            break;
+                        }
+                        // we've to change the class style
+                        p.getR().getStyleClass().add("red_label");
                         break;
                     }
-                    case "false": {
-                        // we've to change the class style
-                        l.getStyleClass().add("red_label");
-                    }
-                    default: {
+                    default -> {
                         System.out.println("Non possible that this appen in a boolean value");
                         break;
                     }
@@ -156,36 +175,43 @@ public class Controller_MainFrame{
         // clear the list labels before
         labelList.clear();
 
-        label_ciclo.setText(String.valueOf(conn.findDato("Ciclo automatico in corso",conn.datoHashSet).isStato()));
-        label_emergenza.setText(String.valueOf(conn.findDato("Emergenza non ripristinata",conn.datoHashSet).isStato()));
-        label_max.setText(String.valueOf(conn.findDato("Livello massimo filtrato",conn.datoHashSet).isStato()));
-        label_min.setText(String.valueOf(conn.findDato("Livello minimo filtrato",conn.datoHashSet).isStato()));
-        label_Imp.setText(String.valueOf(conn.findDato("anomalia impianto in corso",conn.datoHashSet).isStato()));
+        label_ciclo.setText(OnOffChange(String.valueOf(conn.findDato("Ciclo automatico in corso",conn.datoHashSet).isStato())));
+        label_emergenza.setText(OnOffChange(String.valueOf(conn.findDato("Emergenza non ripristinata",conn.datoHashSet).isStato())));
+        label_max.setText(OnOffChange(String.valueOf(conn.findDato("Livello massimo filtrato",conn.datoHashSet).isStato())));
+        label_min.setText(OnOffChange(String.valueOf(conn.findDato("Livello minimo filtrato",conn.datoHashSet).isStato())));
+        label_Imp.setText(OnOffChange(String.valueOf(conn.findDato("anomalia impianto in corso",conn.datoHashSet).isStato())));
 
         Pompa pomp1 = (Pompa) conn.findDato("Pompa 1",conn.datoHashSet);
-        label_action_pomp1.setText(String.valueOf(pomp1.isStato()));
+        label_action_pomp1.setText(OnOffChange(String.valueOf(pomp1.isStato())));
         label_freq1.setText(String.valueOf(pomp1.getFreq()));
 
         Pompa pomp2 = (Pompa) conn.findDato("Pompa 2",conn.datoHashSet);
-        label_action_pomp2.setText(String.valueOf(pomp2.isStato()));
+        label_action_pomp2.setText(OnOffChange(String.valueOf(pomp2.isStato())));
         label_freq2.setText(String.valueOf(pomp2.getFreq()));
 
 
         // add the label in the labels list
-        labelList.add(label_ciclo);
-        labelList.add(label_emergenza);
-        labelList.add(label_freq2);
-        labelList.add(label_freq1);
-        labelList.add(label_max);
-        labelList.add(label_min);
-        labelList.add(label_action_pomp1);
-        labelList.add(label_action_pomp2);
-        labelList.add(label_Imp);
+        labelList.add(new Pair<>("Ciclo automatico in Corso",label_ciclo));
+        labelList.add(new Pair<>("Anomalia emergenza non ripristinata",label_emergenza));
+        labelList.add(new Pair<>("Frequenza elettropompa 1",label_freq2));
+        labelList.add(new Pair<>("Frequenza elettropompa 2",label_freq1));
+        labelList.add(new Pair<>("Anomalia livello massimo filtrato",label_max));
+        labelList.add(new Pair<>("Anomalia livello minimo filtrato",label_min));
+        labelList.add(new Pair<>("Esclusione pompa 1",label_action_pomp1));
+        labelList.add(new Pair<>("Esclusione pompa 2",label_action_pomp2));
+        labelList.add(new Pair<>("Anomalia Impianto In Corso",label_Imp));
+
 
         // change status visualized
         changeEvents();
     }
 
+    private String OnOffChange(String value){
+        if (value == "true")
+            return "On";
+        else
+            return "Off";
+    }
     protected void refreshScreen(){
         conn.refresh();
         visualize();

@@ -92,6 +92,9 @@ public class TCP_IP_Connection {
     protected  Dato findDato(String nome, HashSet<Dato> datoHashSet) {
         for (Dato dato : datoHashSet) {
             if (dato.getNome().equals(nome)) {
+
+
+
                 return dato;
             }
         }
