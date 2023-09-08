@@ -8,8 +8,8 @@
 
 .label{
     -fx-text-fill: #00963F;
-    -fx-font-size: 15;
-    -fx-font-family: "Times New Roman";
+    -fx-font-size: 16px;
+    -fx-font-family: Inter,sans-serif;
     -fx-font-weight: bold;
 }
 
@@ -59,7 +59,9 @@
 }
 
 .red_label{
+    -fx-text-fill: #111;
     -fx-background-color: #f10505;
+    -fx-border-color: #f10505;
 }
 
 

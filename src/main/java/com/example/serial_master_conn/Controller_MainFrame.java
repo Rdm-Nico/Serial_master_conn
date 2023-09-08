@@ -8,16 +8,15 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.InputMethodEvent;
 import javafx.util.Duration;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
+import java.util.*;
 
-import static java.lang.Thread.sleep;
+
 
 public class Controller_MainFrame{
 
@@ -63,6 +62,9 @@ public class Controller_MainFrame{
     @FXML
     private Label label_min;
 
+
+    private ArrayList<Label> labelList = new ArrayList<>();
+
     @FXML
     void Events_Buttons(ActionEvent event) {
         // check the buttons source
@@ -71,17 +73,12 @@ public class Controller_MainFrame{
              conn = new TCP_IP_Connection();
              System.out.println("Set connection!!!");
 
-            label_Imp.setStyle("-fx-border-color: black");
-            label_ciclo.setStyle("-fx-border-color: black");
-
              // change the text of the labels
             visualize();
 
-            // use of threads
 
+            // use of threads
             refreshService = new RefreshScreenService(this,conn);
-            //refreshService.createTask();
-            //refreshService.start();
 
             scheduledService =  new ScheduledService() {
                 @Override
@@ -93,81 +90,72 @@ public class Controller_MainFrame{
             scheduledService.start();
 
 
-
-            /*
-
-            Service<Void> service = new Service<Void>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            Thread.sleep(1000);
-                            // background work
-                            refreshScreen();
-
-                            Timeline timeline = new Timeline();
-                            timeline.setCycleCount(3);
-
-                            timeline.play();
-                            //System.out.println("Screen is refreshing");
-
-
-
-                            final CountDownLatch latch = new CountDownLatch(1);
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try{
-
-                                            TimerTask timerTask = new TimerTask() {
-                                                @Override
-                                                public void run() {
-                                                    refreshScreen();
-                                                }
-                                            };
-
-                                            Timer clock = new Timer(true);
-                                            clock.scheduleAtFixedRate(timerTask, 1000, 3*2000);
-
-
-
-
-                                    } finally {
-                                        latch.countDown();
-                                    }
-                                }
-                            });
-                            latch.await();
-                            return null;
-                        }
-                    };
-                }
-            };
-            service.start(); */
         }
 
         if(event.getSource() == button_disconnect){
+            // disconnect the conn and  kills the threads
             if(scheduledService.isRunning())
                 scheduledService.cancel();
             conn.disconnect();
 
             // clear the text of the labels
-            label_Imp.getStyleClass().add("label");
-            label_ciclo.setText("");
-            label_emergenza.setText("");
-            label_max.setText("");
-            label_min.setText("");
-            label_Imp.setText("");
-            label_action_pomp1.setText("");
-            label_freq1.setText("");
-            label_action_pomp2.setText("");
-            label_freq2.setText("");
+            for(Label l:labelList){
+                l.getStyleClass().clear();
+                l.getStyleClass().add("init_label");
+                l.getStyleClass().add("label");
+                l.setText("");
+            }
+
+            labelList.clear();
         }
 
     }
 
+    private void changeEvents() {
+        for (Label l: labelList){
+
+            if(isNumeric(l.getText())){
+                // then is a freq:
+                int val = Integer.parseInt(l.getText());
+                if( val < 0 || val > 250){
+                    l.getStyleClass().add("red_label");
+                }
+            }
+            else {
+                switch (l.getText()) {
+                    case "true": {
+                        break;
+                    }
+                    case "false": {
+                        // we've to change the class style
+                        l.getStyleClass().add("red_label");
+                    }
+                    default: {
+                        System.out.println("Non possible that this appen in a boolean value");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     private void visualize(){
+
+        // clear the list labels before
+        labelList.clear();
+
         label_ciclo.setText(String.valueOf(conn.findDato("Ciclo automatico in corso",conn.datoHashSet).isStato()));
         label_emergenza.setText(String.valueOf(conn.findDato("Emergenza non ripristinata",conn.datoHashSet).isStato()));
         label_max.setText(String.valueOf(conn.findDato("Livello massimo filtrato",conn.datoHashSet).isStato()));
@@ -181,6 +169,21 @@ public class Controller_MainFrame{
         Pompa pomp2 = (Pompa) conn.findDato("Pompa 2",conn.datoHashSet);
         label_action_pomp2.setText(String.valueOf(pomp2.isStato()));
         label_freq2.setText(String.valueOf(pomp2.getFreq()));
+
+
+        // add the label in the labels list
+        labelList.add(label_ciclo);
+        labelList.add(label_emergenza);
+        labelList.add(label_freq2);
+        labelList.add(label_freq1);
+        labelList.add(label_max);
+        labelList.add(label_min);
+        labelList.add(label_action_pomp1);
+        labelList.add(label_action_pomp2);
+        labelList.add(label_Imp);
+
+        // change status visualized
+        changeEvents();
     }
 
     protected void refreshScreen(){
