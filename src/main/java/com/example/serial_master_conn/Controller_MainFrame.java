@@ -100,7 +100,7 @@ public class Controller_MainFrame{
                     return refreshService.createSaveTask();
                 }
             };
-            savedataService.setPeriod(Duration.minutes(10));
+            savedataService.setPeriod(Duration.hours(8));
             savedataService.start();
 
         }
@@ -144,7 +144,7 @@ public class Controller_MainFrame{
             else {
                 switch (p.getR().getText()) {
                     case "On" -> {
-                        if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia Livello massimo filtrato" || p.getL() == "Anomalia Livello minimo filtrato" ||
+                        if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia livello massimo filtrato" || p.getL() == "Anomalia livello minimo filtrato" ||
                                 p.getL() == "Esclusione pompa 1" || p.getL() == "Esclusione pompa 2" || p.getL() == "Anomalia emergenza non ripristinata") {
                             // we've to change the class style
                             p.getR().getStyleClass().add("red_label");

@@ -23,10 +23,6 @@ public class RefreshScreenTask extends Task<Void> {
                 cm.refreshScreen();
             }
         });
-
-
-        System.out.println("doing background tasks");
-
         return null;
     }
 }

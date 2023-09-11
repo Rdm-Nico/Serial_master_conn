@@ -28,7 +28,7 @@ public class SaveDataTask extends Task<Void> {
                 try{
                     // create the filename:
                     Date date = new Date();
-                    SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh:mm");
+                    SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
 
 
                     output = new File("src\\main\\Data\\" + parser.format(date) + ".xml");
@@ -42,8 +42,11 @@ public class SaveDataTask extends Task<Void> {
 
                     // marshelling and saving XML to the file
                     marshaller.marshal(wrapper,output);
-
+                    System.out.println("\n");
+                    System.out.println("---------------------------------------");
                     System.out.println("save data in path:"+ output.getPath());
+                    System.out.println("---------------------------------------");
+                    System.out.println("\n");
 
                 }catch (JAXBException e){
                     e.printStackTrace();
