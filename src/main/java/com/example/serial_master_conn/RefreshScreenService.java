@@ -16,4 +16,8 @@ public class RefreshScreenService extends Service<Void> {
     protected Task<Void> createTask() {
         return new RefreshScreenTask(controller_mainFrame, conn);
     }
+
+    protected Task<Void> createSaveTask(){
+        return new SaveDataTask(conn);
+    }
 }

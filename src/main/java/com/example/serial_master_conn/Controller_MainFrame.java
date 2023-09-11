@@ -28,6 +28,7 @@ public class Controller_MainFrame{
     // for threads
     private RefreshScreenService refreshService;
     private ScheduledService scheduledService;
+    private ScheduledService savedataService;
 
 
     // for the labels
@@ -90,9 +91,17 @@ public class Controller_MainFrame{
                     return refreshService.createTask();
                 }
             };
-            scheduledService.setPeriod(Duration.millis(3000));
+            scheduledService.setPeriod(Duration.millis(5000));
             scheduledService.start();
 
+            savedataService = new ScheduledService() {
+                @Override
+                protected Task createTask() {
+                    return refreshService.createSaveTask();
+                }
+            };
+            savedataService.setPeriod(Duration.minutes(10));
+            savedataService.start();
 
         }
 
@@ -100,6 +109,10 @@ public class Controller_MainFrame{
             // disconnect the conn and  kills the threads
             if(scheduledService.isRunning())
                 scheduledService.cancel();
+
+            if(savedataService.isRunning())
+                savedataService.cancel();
+
             conn.disconnect();
 
             // clear the text of the labels

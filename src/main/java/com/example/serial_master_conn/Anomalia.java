@@ -1,5 +1,8 @@
 package com.example.serial_master_conn;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Anomalia extends Dato {
     public Anomalia(String nome) {
         super(nome);

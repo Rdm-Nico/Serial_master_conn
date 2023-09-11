@@ -1,13 +1,19 @@
 package com.example.serial_master_conn;
 
-import java.util.HashSet;
 
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.HashSet;
+@XmlRootElement
 public abstract class Dato implements Abstract_Dato {
 
     private String nome;
     private boolean stato = false;
     private int registro = 0;
     private int poss = 0;
+
+    public Dato(){}
 
     public Dato(String nome) {
         this.nome = nome;
@@ -55,7 +61,7 @@ public abstract class Dato implements Abstract_Dato {
         return nome;
     }
 
-    @Override
+    @Override @XmlTransient
     public void setRegistro(int num_reg) {
             this.registro = num_reg;
     }
@@ -65,7 +71,7 @@ public abstract class Dato implements Abstract_Dato {
             return registro;
     }
 
-    @Override
+    @Override @XmlTransient
     public void setOffset(int pos) {
         this.poss = pos;
     }

@@ -1,9 +1,10 @@
 package com.example.serial_master_conn;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@XmlRootElement
 public class Pompa extends Dato{
 
     short freq = 0;
