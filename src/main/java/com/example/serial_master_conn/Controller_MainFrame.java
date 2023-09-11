@@ -150,12 +150,15 @@ public class Controller_MainFrame{
                             p.getR().getStyleClass().add("red_label");
                             break;
                         }
-                        else
+                        else{
+                            p.getR().getStyleClass().add("green_label");
+                        }
                             break;
                     }
                     case "Off" -> {
                         if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia livello massimo filtrato" || p.getL() == "Anomalia livello minimo filtrato" ||
                                 p.getL() == "Esclusione pompa 1" || p.getL() == "Esclusione pompa 2" || p.getL() == "Anomalia emergenza non ripristinata") {
+                            p.getR().getStyleClass().add("green_label");
                             break;
                         }
                         // we've to change the class style

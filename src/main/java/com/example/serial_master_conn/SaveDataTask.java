@@ -31,7 +31,7 @@ public class SaveDataTask extends Task<Void> {
                     SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
 
 
-                    output = new File("src\\main\\Data\\" + parser.format(date) + ".xml");
+                    output = new File("S:\\ROSSICARLO.Doc\\CNC Rettifica\\Losma\\Storico\\" + parser.format(date) + ".xml");
                     JAXBContext context = JAXBContext.newInstance(DatoHashWrapper.class);
                     Marshaller marshaller = context.createMarshaller();
                     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
