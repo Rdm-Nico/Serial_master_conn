@@ -1,17 +1,11 @@
 package com.example.serial_master_conn;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.InputMethodEvent;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -26,7 +20,7 @@ public class Controller_MainFrame{
     private TCP_IP_Connection conn;
 
     // for threads
-    private RefreshScreenService refreshService;
+    private ServiceTask refreshService;
     private ScheduledService scheduledService;
     private ScheduledService savedataService;
 
@@ -83,7 +77,7 @@ public class Controller_MainFrame{
 
 
             // use of threads
-            refreshService = new RefreshScreenService(this,conn);
+            refreshService = new ServiceTask(this,conn);
 
             scheduledService =  new ScheduledService() {
                 @Override
