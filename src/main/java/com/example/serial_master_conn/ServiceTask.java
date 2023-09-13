@@ -14,7 +14,7 @@ public class ServiceTask extends Service<Void> {
 
     @Override
     protected Task<Void> createTask() {
-        return new RefreshScreenTask(controller_mainFrame, conn);
+        return new RefreshScreenTask(controller_mainFrame);
     }
 
     protected Task<Void> createSaveTask(){

@@ -8,10 +8,8 @@ import java.util.TimerTask;
 
 public class RefreshScreenTask extends Task<Void> {
     private final Controller_MainFrame cm;
-    private TCP_IP_Connection conn;
-    public RefreshScreenTask(Controller_MainFrame cm, TCP_IP_Connection conn) {
+    public RefreshScreenTask(Controller_MainFrame cm) {
         this.cm = cm;
-        this.conn = conn;
     }
 
     @Override
