@@ -142,12 +142,10 @@ public class Controller_MainFrame{
                                 p.getL() == "Esclusione pompa 1" || p.getL() == "Esclusione pompa 2" || p.getL() == "Anomalia emergenza non ripristinata") {
                             // we've to change the class style
                             p.getR().getStyleClass().add("red_label");
-                            break;
                         }
                         else{
                             p.getR().getStyleClass().add("green_label");
                         }
-                            break;
                     }
                     case "Off" -> {
                         if (p.getL() == "Anomalia Impianto In Corso" || p.getL() == "Anomalia livello massimo filtrato" || p.getL() == "Anomalia livello minimo filtrato" ||
@@ -157,11 +155,9 @@ public class Controller_MainFrame{
                         }
                         // we've to change the class style
                         p.getR().getStyleClass().add("red_label");
-                        break;
                     }
                     default -> {
                         System.out.println("Non possible that this appen in a boolean value");
-                        break;
                     }
                 }
             }

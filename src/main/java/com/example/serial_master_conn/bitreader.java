@@ -6,12 +6,7 @@ import java.util.LinkedList;
 
 
 public class bitreader {
-    // una classe che come costruttore ha tutti i registri
-    // ed un metodo: GetBit( int pos) che preleva l'indirizzo selezionato e il tipo che siamo interessati ad avere:
-    // vogliamo:
-    //              bit
-    //              int16
-    //              uint16
+
 
     boolean bit_value;
     short int16_value;
@@ -36,19 +31,15 @@ public class bitreader {
                 ris = buffer & 1;
 
                 bit_value = ris == 1;
-                break;
             }
             case INT16 -> {
                 int16_value = buffer;
-                break;
             }
             case UINT16 -> {
                 uint16_value = (char) buffer;
-                break;
             }
             default -> {
                 System.out.println("Error in the type passed/n");
-                break;
             }
         }
 
@@ -79,7 +70,6 @@ public class bitreader {
 
     private String buffer_in_str(short buffer_str) {
         LinkedList<Integer> ris = new LinkedList<>();
-        int pos = 0;
         while(buffer_str != 0){
             int e =  (buffer_str & 1);
 
