@@ -28,8 +28,8 @@ public class SaveDataTask extends Task<Void> {
                 try{
                     // create the filename:
                     Date date = new Date();
-                    SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
 
+                    SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
 
                     output = new File("S:\\ROSSICARLO.Doc\\CNC Rettifica\\Losma\\Storico\\" + parser.format(date) + ".xml");
                     JAXBContext context = JAXBContext.newInstance(DatoHashWrapper.class);
