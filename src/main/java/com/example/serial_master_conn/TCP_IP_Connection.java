@@ -4,11 +4,19 @@ import com.ghgande.j2mod.modbus.procimg.Register;
 
 import java.util.HashSet;
 
+/* This class allow the Connection between the GUI and the Serial_Conn class( which is what really establishes the serial connection). In particular:
+*
+*       1. Handle  the connection;
+*       2. Save the information data from the connection in a HashSet;
+*
+*@authors Rossi Nicoló
+*   */
+
 public class TCP_IP_Connection {
 
-    protected Serial_Conn conn;
-    protected Register[] registers;
-    protected bitreader br;
+    private final Serial_Conn conn;
+    private Register[] registers;
+    private final bitreader br;
     protected HashSet<Dato> datoHashSet;
 
     protected TCP_IP_Connection(){
@@ -18,6 +26,8 @@ public class TCP_IP_Connection {
 
         registers = conn.getRegisters();
         br = new bitreader(registers);
+
+
 
         System.out.println(br.toString(4));
 
@@ -29,8 +39,9 @@ public class TCP_IP_Connection {
         addsAttributes();
 
     }
+    // This method take from the bit reader class the information that we need and save it
     private void  addsAttributes(){
-        // aggiungiamo gli attributi
+        // adds the attributes
         Anomalia a_Impianto_In_Cor = new Anomalia("anomalia impianto in corso",4,6);
         Pompa pomp1 = new Pompa("Pompa 1",4,13,8);
         Pompa pomp2 = new Pompa("Pompa 2",4,14,9);
@@ -89,15 +100,17 @@ public class TCP_IP_Connection {
     protected void disconnect(){
         conn.disconnect();
     }
-    protected  Dato findDato(String nome, HashSet<Dato> datoHashSet) {
+
+    /* method that take a String and return the object who is associate
+    *
+    * @throws Exception if  no object  find
+    * */
+    protected  Dato findDato(String nome, HashSet<Dato> datoHashSet) throws Exception {
         for (Dato dato : datoHashSet) {
             if (dato.getNome().equals(nome)) {
-
-
-
                 return dato;
             }
         }
-        return null;
+        throw new Exception("find no objects associated with this name");
     }
 }

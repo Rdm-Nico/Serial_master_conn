@@ -4,17 +4,22 @@ import com.ghgande.j2mod.modbus.ModbusException;
 import com.ghgande.j2mod.modbus.facade.ModbusTCPMaster;
 import com.ghgande.j2mod.modbus.procimg.Register;
 
-public class Serial_Conn {
-    String ip_adress;
-    ModbusTCPMaster master;
-    Register[] registers;
-    int  port;
+/* This class handle a Modbus Connection
+*
+* @authors Rossi Nicoló
+*  */
 
-    public Serial_Conn(String ip_adress, int port) {
-        this.master = new ModbusTCPMaster(ip_adress,port);
+public class Serial_Conn {
+    private String ip_address;
+    private static  ModbusTCPMaster master;
+    private Register[] registers;
+    private int  port;
+
+    public Serial_Conn(String ip_address, int port) {
+        master = new ModbusTCPMaster(ip_address,port);
         master.setReconnecting(true);
 
-        this.ip_adress = ip_adress;
+        this.ip_address = ip_address;
         this.port = port;
     }
 
@@ -26,6 +31,7 @@ public class Serial_Conn {
             throw new RuntimeException(e);
         }
     }
+    // This method  enable to save all the registers from the connection, ALL because is not so memory consuming
     public void reading_registers(){
         try {
             registers = master.readMultipleRegisters(1,0,100);
@@ -35,12 +41,12 @@ public class Serial_Conn {
 
     }
 
-    public String getIp_adress() {
-        return ip_adress;
+    public String getIp_address() {
+        return ip_address;
     }
 
-    public void setIp_adress(String ip_adress) {
-        this.ip_adress = ip_adress;
+    public void setIp_address(String ip_address) {
+        this.ip_address = ip_address;
     }
 
     public Register[] getRegisters() {
@@ -72,22 +78,23 @@ public class Serial_Conn {
 
         reading_registers();
     }
+    static class InvalidReconnectionsExpection extends Exception{
+        public  InvalidReconnectionsExpection(String message){
+            System.out.println(message);
+        }
+    }
 
     @Override
     public String toString() {
         return "Serial_Comm{" +
-                "ip_adress='" + ip_adress + '\'' +
+                "ip_adress='" + ip_address + '\'' +
                 ", state=" + master.isConnected() +
                 ", port=" + port +
                 '}';
     }
 
 
-    static class InvalidReconnectionsExpection extends Exception{
-        public  InvalidReconnectionsExpection(String message){
-            System.out.println(message);
-        }
-    }
+
 
 
 }

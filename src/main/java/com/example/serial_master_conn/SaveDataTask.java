@@ -12,6 +12,13 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* This class handle a thread that saving the data coming from the connection in an XML file( the JAXB library allows it) with the filename  like this:
+*
+*           FILENAME: yyyy_MM_dd__hh__mm.xml
+*
+* @authors Rossi Nicoló
+*   */
+
 public class SaveDataTask extends Task<Void> {
     private File output;
     private  final TCP_IP_Connection conn;
@@ -22,11 +29,12 @@ public class SaveDataTask extends Task<Void> {
     @Override
     protected Void call() throws Exception,JAXBException {
         Thread.sleep(1000);
+
+        // allows the correct competition between the threads
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try{
-                    // create the filename:
                     Date date = new Date();
 
                     SimpleDateFormat parser = new SimpleDateFormat("yyyy_MM_dd_hh_mm");

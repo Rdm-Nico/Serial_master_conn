@@ -5,6 +5,11 @@ import com.ghgande.j2mod.modbus.procimg.Register;
 import java.util.LinkedList;
 
 
+/* This class has the task to read the specific register of the Modbus protocol and return some information depending on the communication table we have
+*
+* @authors Rossi Nicoló
+* */
+
 public class bitreader {
 
 
@@ -21,15 +26,20 @@ public class bitreader {
         this.tipo = Type.NAN;
     }
 
-
+    // This method obtained from  the registers the specific information we need, the type op is useful for specify the type of data we need
     public void isValueOf(int register_num,int pos, Type op) {
         int ris;
+        // save the specific register we have to work with
         buffer = registers[register_num].toShort();
         switch (op) {
             case BIT -> {
+                // we right shift for the number of bits required
                 buffer = (short) (buffer >> pos);
+
+                // and extract it
                 ris = buffer & 1;
 
+                // In boolean
                 bit_value = ris == 1;
             }
             case INT16 -> {
@@ -68,6 +78,9 @@ public class bitreader {
                 '}';
     }
 
+    /* This method is helpful if you want to print every single bit in the buffer.
+    *
+    * Notice we give a Big Endian buffer and we return a Littel Endian string */
     private String buffer_in_str(short buffer_str) {
         LinkedList<Integer> ris = new LinkedList<>();
         while(buffer_str != 0){
@@ -75,7 +88,7 @@ public class bitreader {
 
             ris.addFirst(e);
 
-
+            // eliminate the single bit
             buffer_str >>= 1;
         }
         return ris.toString();

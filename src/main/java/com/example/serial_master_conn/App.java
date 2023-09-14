@@ -19,6 +19,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/*
+* This second main class have the aim of starting the FX scene
+*
+* @authors Rossi Nicoló
+* */
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,8 +33,6 @@ public class App extends Application {
         String mainframefxml = "file:/C:/Users/nicor/IdeaProjects/Serial_master_conn/src/main/resources/com/example/serial_master_conn/MainFrame.fxml";
         URL url = new URL(mainframefxml);
         fxmlLoader.setLocation(url);
-
-        String css_style = String.valueOf(App.class.getResource("MainFrameStyle.css"));
 
 
         String css_file = "file:/C:/Users/nicor/IdeaProjects/Serial_master_conn/src/main/resources/com/example/serial_master_conn/MainFrameStyle.css";

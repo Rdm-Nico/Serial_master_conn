@@ -4,7 +4,13 @@ package com.example.serial_master_conn;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.HashSet;
+
+
+/* The implementation of the Abstract_Dato Interface
+* we've also the XMLAnnotation for the saving of the data
+*
+* @authors Rossi Nicoló
+* */
 @XmlRootElement
 public abstract class Dato implements Abstract_Dato {
 

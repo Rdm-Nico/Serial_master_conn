@@ -1,6 +1,7 @@
 package com.example.serial_master_conn;
 
 
+
 public interface Abstract_Dato {
 
     boolean isStato();
